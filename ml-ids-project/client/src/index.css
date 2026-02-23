@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  /* 타이포그래픽 브루탈리즘: 순백색 배경, 극명한 검은색 */
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #ffffff;
+  --chart-1: #1a1a1a;
+  --chart-2: #333333;
+  --chart-3: #4d4d4d;
+  --chart-4: #666666;
+  --chart-5: #808080;
+  --radius: 0px; /* 브루탈리즘: 직각 */
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #000000;
+  --muted: #eeeeee;
+  --muted-foreground: #666666;
+  --accent: #000000;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #000000;
+  --input: #ffffff;
+  --ring: #000000;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #000000;
+  --sidebar-ring: #000000;
+}
+
+.dark {
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #000000;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #ffffff;
+  --muted: #333333;
+  --muted-foreground: #999999;
+  --accent: #ffffff;
+  --accent-foreground: #000000;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #000000;
+  --border: #333333;
+  --input: #1a1a1a;
+  --ring: #ffffff;
+  --chart-1: #e5e5e5;
+  --chart-2: #cccccc;
+  --chart-3: #b3b3b3;
+  --chart-4: #999999;
+  --chart-5: #808080;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-accent: #2a2a2a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #333333;
+  --sidebar-ring: #ffffff;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  /* 타이포그래픽 브루탈리즘: 초대형 헤비웨이트 산세리프 */
+  h1 {
+    @apply text-7xl font-black leading-tight tracking-tighter;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  h2 {
+    @apply text-5xl font-black leading-snug tracking-tight;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  
+  h3 {
+    @apply text-3xl font-bold leading-snug;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  
+  h4 {
+    @apply text-2xl font-bold;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  
+  h5 {
+    @apply text-xl font-bold;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  
+  h6 {
+    @apply text-lg font-bold;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  /* 브루탈리즘 스타일: 굵은 기하학적 선 */
+  .brutalist-border {
+    @apply border-4 border-foreground;
+  }
+  
+  .brutalist-divider {
+    @apply border-t-4 border-foreground my-8;
+  }
+  
+  /* 초대형 텍스트 요소 주변의 풍부한 여백 */
+  .brutalist-heading {
+    @apply text-7xl font-black leading-none tracking-tighter;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+  
+  /* 투박하고 가공되지 않은 산업적 분위기 */
+  .brutalist-card {
+    @apply bg-card text-card-foreground border-4 border-foreground p-8;
+  }
+  
+  .brutalist-button {
+    @apply bg-foreground text-background px-8 py-4 font-bold text-lg border-4 border-foreground;
+    transition: all 0.1s ease;
+  }
+  
+  .brutalist-button:hover {
+    @apply bg-background text-foreground;
+  }
+  
+  .brutalist-button:active {
+    @apply scale-95;
+  }
+  
+  /* 고대비 비대칭 레이아웃 */
+  .asymmetric-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .asymmetric-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* 컨테이너 */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      max-width: 1400px;
+    }
+  }
+  
+  /* 대시보드 레이아웃 */
+  .dashboard-header {
+    @apply border-b-4 border-foreground py-8 mb-12;
+  }
+  
+  .dashboard-section {
+    @apply mb-16;
+  }
+  
+  .stat-card {
+    @apply bg-secondary text-foreground p-8 border-4 border-foreground;
+  }
+  
+  .stat-value {
+    @apply text-5xl font-black leading-none mb-2;
+  }
+  
+  .stat-label {
+    @apply text-lg font-bold uppercase tracking-wider;
+  }
+}

@@ -1,0 +1,121 @@
+CREATE TABLE `alerts` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`modelId` int NOT NULL,
+	`severity` enum('LOW','MEDIUM','HIGH','CRITICAL') NOT NULL,
+	`attackType` enum('DDoS','PortScanning','SQLInjection','BufferOverflow','Backdoor','Reconnaissance','Exploitation','Unknown') NOT NULL,
+	`sourceIP` varchar(45),
+	`destinationIP` varchar(45),
+	`sourcePort` int,
+	`destinationPort` int,
+	`protocol` varchar(10),
+	`confidence` decimal(5,4),
+	`description` text,
+	`trafficData` json,
+	`isResolved` boolean DEFAULT false,
+	`resolvedAt` timestamp,
+	`notes` text,
+	`detectedAt` timestamp NOT NULL DEFAULT (now()),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `alerts_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `datasets` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`description` text,
+	`datasetType` enum('NSL-KDD','CICIDS2017','UNSW-NB15','KDD99','CUSTOM') NOT NULL,
+	`filePath` varchar(512) NOT NULL,
+	`fileSize` int,
+	`totalRecords` int,
+	`features` int,
+	`trainingRecords` int,
+	`testingRecords` int,
+	`uploadedAt` timestamp NOT NULL DEFAULT (now()),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `datasets_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `experiments` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`modelId` int NOT NULL,
+	`datasetId` int NOT NULL,
+	`experimentName` varchar(255) NOT NULL,
+	`description` text,
+	`status` enum('PENDING','RUNNING','COMPLETED','FAILED') DEFAULT 'PENDING',
+	`hyperparameters` json,
+	`results` json,
+	`confusionMatrix` json,
+	`featureImportance` json,
+	`trainingTime` int,
+	`startedAt` timestamp,
+	`completedAt` timestamp,
+	`notes` text,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `experiments_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `featureEngineering` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`datasetId` int NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`description` text,
+	`originalFeatures` int,
+	`processedFeatures` int,
+	`preprocessingSteps` json,
+	`normalizationMethod` varchar(100),
+	`featureSelection` json,
+	`scalingMethod` varchar(100),
+	`missingValueHandling` varchar(100),
+	`outlierHandling` varchar(100),
+	`notes` text,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `featureEngineering_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `models` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`datasetId` int NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`description` text,
+	`modelType` enum('RandomForest','SVM','NeuralNetwork','GradientBoosting','KNN','DecisionTree','Ensemble') NOT NULL,
+	`modelPath` varchar(512) NOT NULL,
+	`hyperparameters` json,
+	`accuracy` decimal(5,4),
+	`precision` decimal(5,4),
+	`recall` decimal(5,4),
+	`f1Score` decimal(5,4),
+	`auc` decimal(5,4),
+	`trainingTime` int,
+	`isActive` boolean DEFAULT false,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `models_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `trafficLogs` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`modelId` int,
+	`sourceIP` varchar(45) NOT NULL,
+	`destinationIP` varchar(45) NOT NULL,
+	`sourcePort` int,
+	`destinationPort` int,
+	`protocol` varchar(10),
+	`packetCount` int,
+	`byteCount` int,
+	`duration` decimal(10,4),
+	`features` json,
+	`prediction` enum('NORMAL','ANOMALY'),
+	`confidence` decimal(5,4),
+	`timestamp` timestamp NOT NULL DEFAULT (now()),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `trafficLogs_id` PRIMARY KEY(`id`)
+);
